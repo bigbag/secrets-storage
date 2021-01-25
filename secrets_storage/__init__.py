@@ -1,13 +1,24 @@
-from .constants import DEFAULT_LOCALE, LANGUAGE_HEADER
-from .i18n import get_locale, gettext_lazy, load_gettext_translations, set_locale
-from .middleware import LocaleMiddleware
+from dataclasses import dataclass
+from typing import Any, List, Optional
 
-__all__ = [
-    "DEFAULT_LOCALE",
-    "LANGUAGE_HEADER",
-    "LocaleMiddleware",
-    "gettext_lazy",
-    "get_locale",
-    "set_locale",
-    "load_gettext_translations",
-]
+from .storages import BaseStorage, ENVStorage, VaultStorage
+
+__all__ = ["Secrets", "BaseStorage", "VaultStorage", "ENVStorage"]
+
+
+@dataclass
+class Secrets:
+    storages: List[BaseStorage]
+
+    def get(self, name: str, fallback_value: Optional[Any] = None) -> Any:
+        for storage in self.storages:
+            if not storage.enabled:
+                continue
+
+            secret = storage.get_secret(name, fallback_value)
+            if not secret:
+                raise ValueError(f"Secret: '{name}' is not found in '{storage.name}' storage")
+
+            return secret
+
+        raise ValueError(f"Not found available storage for secret: '{name}'.")
