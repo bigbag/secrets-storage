@@ -16,7 +16,7 @@ class BaseStorage(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_secret(self, name: str, fallback_value: Optional[Any] = None) -> Any:
+    def get_secret(self, name: str, fallback_value: Any = None) -> Any:
         pass
 
 
@@ -55,7 +55,7 @@ class VaultStorage(BaseStorage):
     def enabled(self) -> bool:
         return bool(self.available and self.host and self.kube_token_path and self.namespace)
 
-    def get_secret(self, name: str, fallback_value: Optional[Any] = None) -> Any:
+    def get_secret(self, name: str, fallback_value: Any = None) -> Any:
         return self.secrets.get(name)
 
 
@@ -68,5 +68,5 @@ class ENVStorage(BaseStorage):
     def enabled(self) -> bool:
         return bool(self.available)
 
-    def get_secret(self, name: str, fallback_value: Optional[Any] = None) -> Any:
+    def get_secret(self, name: str, fallback_value: Any = None) -> Any:
         return os.getenv(name, fallback_value)
