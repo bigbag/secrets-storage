@@ -27,7 +27,7 @@ class VaultStorage(BaseStorage):
     role: str
 
     name: str = "vault_storage"
-    available: bool = False
+    available: bool = True
     ssl_verify: bool = False
 
     auth_token_path: str = "/var/run/secrets/kubernetes.io/serviceaccount/token"
@@ -61,7 +61,7 @@ class VaultStorage(BaseStorage):
         return bool(self.available and self.host and self.auth_token_path and self.namespace)
 
     def get_secret(self, name: str, fallback_value: Any = None) -> Any:
-        return self.secrets.get(name)
+        return self.secrets.get(name) or fallback_value
 
 
 @dataclass
