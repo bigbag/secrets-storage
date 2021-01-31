@@ -19,7 +19,23 @@ Use pip to install:
 
 Basic Usage
 -----------
+.. code:: python
 
+    from secrets_storage import VaultStorage, ENVStorage, Secrets
+
+    IS_PROD = True
+
+    vault_storage = VaultStorage(
+        host="VAULT_ADDR",
+        namespace="VAULT_PATH",
+        role="VAULT_ROLE",
+        available=IS_PROD,
+    )
+
+    secrets = Secrets(storages=[vault_storage, ENVStorage()])
+
+
+    secrets.get("TEST_PASSWOD")
 
 License
 -------
