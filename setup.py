@@ -29,7 +29,7 @@ setup(
     name="secrets-storage",
     version=str(version.VERSION),
     license="Apache License, Version 2.0",
-    description="Helper for getting secretss from different storage",
+    description="Helper for getting secrets from different storage",
     long_description=readme,
     long_description_content_type="text/x-rst",
     author="Pavel Liashkov",

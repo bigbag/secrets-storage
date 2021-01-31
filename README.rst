@@ -7,7 +7,7 @@ secrets-storage
    :target: https://pypi.python.org/pypi/secrets-storage
 
 
-**secrets-storage** is a helper for getting secretss from different storage.
+**secrets-storage** is a helper for getting secrets from different storage.
 
 
 Installation
