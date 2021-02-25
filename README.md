@@ -1,6 +1,7 @@
 # secrets-storage
 
 [![CI](https://github.com/bigbag/secrets-storage/workflows/CI/badge.svg)](https://github.com/bigbag/secrets-storage/actions?query=workflow%3ACI)
+[![codecov](https://codecov.io/gh/bigbag/secrets-storage/branch/main/graph/badge.svg?token=FQTY888XG1)](https://codecov.io/gh/bigbag/secrets-storage)
 [![pypi](https://img.shields.io/pypi/v/secrets-storage.svg)](https://pypi.python.org/pypi/secrets-storage)
 [![downloads](https://img.shields.io/pypi/dm/secrets-storage.svg)](https://pypistats.org/packages/secrets-storage)
 [![versions](https://img.shields.io/pypi/pyversions/secrets-storage.svg)](https://github.com/bigbag/secrets-storage)
