@@ -8,6 +8,20 @@ tag:
 	@git push origin $(name);
 	@git push origin main
 
+.PHONY: check
+check:
+	@echo "Run isort"
+	@exec isort --check-only .
+	@echo "Run black"
+	@exec black --check --diff secrets_storage tests
+	@echo "Run flake"
+	@exec flake8 secrets_storage tests
+	@echo "Run bandit"
+	@exec bandit -r secrets_storage/*
+	@echo "Run mypy"
+	@exec mypy secrets_storage
+	@exec rm -rf .mypy_cache
+	
 .PHONY: lint
 lint:
 	@echo "Run isort"
