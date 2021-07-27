@@ -1,7 +1,7 @@
 import abc
 import os
+import typing as t
 from dataclasses import dataclass, field
-from typing import Any, Dict
 
 import hvac
 
@@ -16,7 +16,7 @@ class BaseStorage(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_secret(self, name: str, fallback_value: Any = None) -> Any:
+    def get_secret(self, name: str, fallback_value: t.Any = None) -> t.Any:
         pass
 
 
@@ -32,7 +32,7 @@ class VaultStorage(BaseStorage):
 
     auth_token_path: str = "/var/run/secrets/kubernetes.io/serviceaccount/token"
 
-    secrets: Dict[str, Any] = field(init=False, repr=False)
+    secrets: t.Dict[str, t.Any] = field(init=False, repr=False)
 
     def __post_init__(self):
         if not self.enabled:
@@ -60,7 +60,7 @@ class VaultStorage(BaseStorage):
     def enabled(self) -> bool:
         return bool(self.available and self.host and self.auth_token_path and self.namespace)
 
-    def get_secret(self, name: str, fallback_value: Any = None) -> Any:
+    def get_secret(self, name: str, fallback_value: t.Any = None) -> t.Any:
         return self.secrets.get(name) or fallback_value
 
 
@@ -73,5 +73,5 @@ class ENVStorage(BaseStorage):
     def enabled(self) -> bool:
         return bool(self.available)
 
-    def get_secret(self, name: str, fallback_value: Any = None) -> Any:
+    def get_secret(self, name: str, fallback_value: t.Any = None) -> t.Any:
         return os.getenv(name, fallback_value)
