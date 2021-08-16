@@ -30,6 +30,7 @@ class VaultStorage(BaseStorage):
     available: bool = True
     ssl_verify: bool = False
 
+    auth_mount_point: str = "kubernetes"
     auth_token_path: str = "/var/run/secrets/kubernetes.io/serviceaccount/token"
 
     secrets: t.Dict[str, t.Any] = field(init=False, repr=False)
@@ -44,7 +45,9 @@ class VaultStorage(BaseStorage):
         with open(self.auth_token_path) as f:
             sa_token = f.read()
 
-        auth_info = client.auth_kubernetes(role=self.role, jwt=sa_token)
+        auth_info = client.auth_kubernetes(
+            role=self.role, jwt=sa_token, mount_point=self.auth_mount_point
+        )
         client_token = auth_info.get("auth", {}).get("client_token")
         if not client_token:
             raise ValueError("Not found vault token.")
