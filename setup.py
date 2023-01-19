@@ -41,7 +41,7 @@ setup(
     platforms=["POSIX"],
     classifiers=CLASSIFIERS,
     python_requires=">=3.7",
-    install_requires=["hvac>=0.11,<0.12"],
+    install_requires=["hvac>=0.11,<1.1"],
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
