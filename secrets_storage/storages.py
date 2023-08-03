@@ -4,6 +4,7 @@ import typing as t
 from dataclasses import dataclass, field
 
 import hvac
+from hvac.api.auth_methods import Kubernetes
 
 
 class BaseStorage(abc.ABC):
@@ -56,9 +57,10 @@ class VaultStorage(BaseStorage):
         with open(self.auth_token_path) as f:
             sa_token = f.read()
 
-        auth_info = client.auth_kubernetes(
+        auth_info = Kubernetes(client.adapter).login(
             role=self.role, jwt=sa_token, mount_point=self.auth_mount_point
         )
+
         client_token = auth_info.get("auth", {}).get("client_token")
         if not client_token:
             raise ValueError("Not found vault token.")
