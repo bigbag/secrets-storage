@@ -10,6 +10,7 @@
 
 **secrets-storage** is a helper for getting secrets from different storage.
 
+* [Project Changelog](https://github.com/bigbag/secrets-storage/blob/main/CHANGELOG.md)
 
 ## Installation
 
