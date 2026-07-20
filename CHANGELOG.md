@@ -1,3 +1,12 @@
+# Changelog
+
+## 1.0.0
+
+- Modernize packaging, tooling, CI, and supported Python versions (3.11–3.14).
+- Correct secret lookup so valid falsey values are returned.
+- Add explicit configuration, authentication, response, and lookup errors.
+- Enable secure-by-default Vault TLS verification and PyPI trusted publishing.
+
 
 
 ## 0.11.0 (2024-10-18)
